@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Simple weather indicator applet",
   "dependencies": {
+    "electron-positioner": "*",
     "menubar": "*",
     "jquery": "*",
     "moment": "*",

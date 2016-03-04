@@ -7,6 +7,7 @@ const app = electron.app;
 const Menu = electron.Menu;
 const MenuItem = electron.MenuItem;
 const BrowserWindow = electron.BrowserWindow;
+const Positioner = require('electron-positioner');
 
 var DEBUG_ENABLED = true;
 
@@ -24,8 +25,8 @@ var opts = {
     height: 150,
     tooltip: 'Show Weather',
     transparent: "true",
-    'preload-window': 'true',
-    'always-on-top': 'true'
+    'preload-window': 'true'
+    //'always-on-top': 'false'
 };
 
 var mb = menubar(opts);
@@ -57,26 +58,25 @@ mb.on('after-create-window', function onCreateWindow() {
 });
 
 function clicked(e, bounds) {
-    if (DEBUG_ENABLED) {
-        //disable auto hide functions
-        if (e.altKey || e.shiftKey || e.ctrlKey || e.metaKey) return mb.hideWindow();
-        if (menubar.window && menubar.window.isVisible()) return mb.hideWindow();
-    }
+    if (e.altKey || e.shiftKey || e.ctrlKey || e.metaKey) return mb.hideWindow();
+    if (menubar.window && menubar.window.isVisible()) return mb.hideWindow();
     cachedBounds = bounds || cachedBounds;
-    mb.showWindow(cachedBounds)
+    mb.showWindow(cachedBounds);
 }
 //
 var util = {
     showSettings: function settings() {
         var options = {
-            height:200,
-            width:400,
+            height: 600,
+            width: 400,
             show: true,
             frame: true,
             center: true,
             darkTheme: true
         };
         var newWindow = new BrowserWindow(options);
+        var positioner = new Positioner(newWindow);
+        positioner.move('center');
         newWindow.loadURL('file://' + path.join(opts.dir, 'settings.html'))
     },
 
