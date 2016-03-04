@@ -50,7 +50,7 @@ mb.on('ready', function ready() {
 
 mb.on('after-create-window', function onCreateWindow() {
     mb.window.webContents.on('dom-ready', function () {
-        weather({q: 'Wentzville, MO'}).then(function (result) {
+        weather({q: 'Wentzville, MO', unit: 'f'}).then(function (result) {
             mb.window.webContents.send('ping', JSON.stringify(result, null, 2));
         });
     });
