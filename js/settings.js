@@ -3,10 +3,15 @@
  * To load and save userdata(settings) to a file
  * and maintain the settings page.
  */
-function loadUserData(username){
+const ipcRenderer = require('electron').ipcRenderer;
 
+
+function loadConfig(config, callback){
+    ipcRenderer.on('event-save-settings-reply', function(event, arg){
+        callback(arg);
+    })
 }
 
-function saveUserData(username){
-
+function saveConfig(configJson){
+    ipcRenderer.send('event-save-settings', configJson);
 }

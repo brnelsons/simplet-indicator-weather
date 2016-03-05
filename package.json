@@ -4,6 +4,7 @@
   "description": "Simple weather indicator applet",
   "dependencies": {
     "electron-positioner": "*",
+    "electron-settings": "*",
     "menubar": "*",
     "jquery": "*",
     "moment": "*",

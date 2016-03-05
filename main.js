@@ -8,6 +8,7 @@ const Menu = electron.Menu;
 const MenuItem = electron.MenuItem;
 const BrowserWindow = electron.BrowserWindow;
 const Positioner = require('electron-positioner');
+const settings = require('electron-settings');
 
 var DEBUG_ENABLED = true;
 
@@ -84,8 +85,13 @@ var util = {
         mb.window.toggleDevTools();
     }
 };
+//
+//ipcMain.on('settings', function (event, arg) {
+//    console.log(arg);  // prints "ping"
+//    event.sender.send('async-reply', util.update);
+//});
 
-ipcMain.on('async-msg', function (event, arg) {
-    console.log(arg);  // prints "ping"
-    event.sender.send('async-reply', util.update);
+ipcMain.on('event-save-settings', function(event, arg){
+    console.logs(arg);
+    event.sender.send('event-save-settings-reply')
 });
